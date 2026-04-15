@@ -100,11 +100,11 @@ app.get('/api/questions', (req, res) => {
   const baseUrl = getBaseUrl(req)
   const questionsWithFullUrls = questions.map (q => ({
     ...q,
-    image_url: `${baseUrl}${q.image_path}`
+    image_url: `${baseUrl}/${q.image_path}`
   }))
   res.json(questionsWithFullUrls);
 });
 
 app.listen(port, () => {
-  console.log(`API-servern körs! Gå till http://localhost:${port}/api/questions för att testa.`);
+  console.log(`API-servern körs! Gå till https://katrineholmgeoquiz.onrender.com/api/questions för att testa.`);
 });
