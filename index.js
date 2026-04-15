@@ -26,7 +26,7 @@ const questions =
         correct_answer:"Djulö",
         incorrect_answers: ["Sveaparken", "Järnvägsparken", "Furuliden"],
         image_path: "images/banken.jpg",
-        lat : 58.9926266,
+        lat : 58.9929673,
         lng : 16.2072014
     },
     {
