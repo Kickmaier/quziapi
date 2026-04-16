@@ -2,17 +2,7 @@ import  express from 'express'
 import cors from 'cors'
 const app = express()
 const port = process.env.PORT || 3000
-
-app.use(cors())
-app.use('/images', express.static('public/images'))
-
-const getBaseUrl =(req) =>
-{
-    return `${req.protocol}://${req.get('host')}`;
-}
-
-const questions = 
-[
+const allQuestions = {stadsparken: [
     {
         question: "Vilket material var förlagan till detta konstverk gjort av?",
         correct_answer: "Trä",
@@ -93,12 +83,33 @@ const questions =
         lat : 58.9933587,
         lng : 16.2070026
     }
-]
+],
+sveaparken : 
+[
+    {
+        question: "Vad ser detta verk ut som?",
+        correct_answer: "en tumme",
+        incorrect_answers: ["en näsa", "ett öra", "en haka"],
+        image_path: "images/snigel.jpg",
+        lat:58.9911258,
+        lng:16.2171698
+
+    }
+] }
+app.use(cors())
+app.use('/images', express.static('public/images'))
+
+const getBaseUrl =(req) =>
+{
+    return `${req.protocol}://${req.get('host')}`;
+}
 
 app.get('/api/questions', (req, res) => {
-  console.log("Anrop mottaget! Skickar data till appen.");
+  const routeType = req.query.type
+  console.log(`Anrop mottaget! Skickar data till appen. ${routeType}`);
+  const selectedQuestions = allQuestions[routeType]
   const baseUrl = getBaseUrl(req)
-  const questionsWithFullUrls = questions.map (q => ({
+  const questionsWithFullUrls = selectedQuestions.map (q => ({
     ...q,
     image_url: `${baseUrl}/${q.image_path}`
   }))
